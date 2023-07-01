@@ -1,6 +1,6 @@
 "use client";
 
-import { MyUserContextProvider } from '@/hooks/useUser/useUsert';
+import { MyUserContextProvider } from '@/hooks/useUser/useUser';
 import { FC } from 'react'
 
 interface UserProviderProps {
