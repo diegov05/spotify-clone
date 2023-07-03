@@ -3,6 +3,7 @@
 import { FC } from 'react'
 import { TbPlaylist } from 'react-icons/tb'
 import { AiOutlinePlus } from 'react-icons/ai'
+import { useAuthModal, useUploadModal, useUser } from '@/hooks';
 
 interface LibraryProps {
 
@@ -10,8 +11,16 @@ interface LibraryProps {
 
 const Library: FC<LibraryProps> = () => {
 
-    const onClick = () => {
+    const { user } = useUser();
+    const authModal = useAuthModal()
+    const uploadModal = useUploadModal()
 
+    const onClick = () => {
+        if (!user) {
+            return authModal.onOpen();
+        }
+
+        return uploadModal.onOpen()
     }
 
     return (
