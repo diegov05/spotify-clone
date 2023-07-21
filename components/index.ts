@@ -5,13 +5,15 @@ import { UploadModal } from "./UploadModal/UploadModal";
 import { Header } from "./Header/Header";
 import { ListItem } from "./ListItem/ListItem";
 import { SongItem } from "./SongItem/SongItem";
+import { SearchInput } from "./SearchInput/SearchInput";
 
 export {
-    SongItem,
-    ListItem,
-    Header,
-    Sidebar,
-    Modal,
-    AuthModal,
-    UploadModal
-}
+  SearchInput,
+  SongItem,
+  ListItem,
+  Header,
+  Sidebar,
+  Modal,
+  AuthModal,
+  UploadModal,
+};
