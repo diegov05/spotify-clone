@@ -1,6 +1,6 @@
 "use client";
 
-import { MediaItem } from '@/components/MediaItem/MediaItem';
+import { MediaItem, LikeButton } from '@/components'
 import { Song } from '@/types';
 import { FC } from 'react'
 
@@ -54,6 +54,7 @@ const SearchContent: FC<SearchContentProps> =
                                 data={song}
                             />
                         </div>
+                        <LikeButton songId={song.id} />
                     </div>
                 ))}
             </div>
