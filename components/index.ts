@@ -6,8 +6,12 @@ import { Header } from "./Header/Header";
 import { ListItem } from "./ListItem/ListItem";
 import { SongItem } from "./SongItem/SongItem";
 import { SearchInput } from "./SearchInput/SearchInput";
+import { LikeButton } from "./LikeButton/LikeButton";
+import { MediaItem } from "./MediaItem/MediaItem";
 
 export {
+  MediaItem,
+  LikeButton,
   SearchInput,
   SongItem,
   ListItem,
