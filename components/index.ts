@@ -8,8 +8,10 @@ import { SongItem } from "./SongItem/SongItem";
 import { SearchInput } from "./SearchInput/SearchInput";
 import { LikeButton } from "./LikeButton/LikeButton";
 import { MediaItem } from "./MediaItem/MediaItem";
+import { Player } from "./Player/Player";
 
 export {
+  Player,
   MediaItem,
   LikeButton,
   SearchInput,
