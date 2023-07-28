@@ -14,9 +14,9 @@ const Player: FC<PlayerProps> = () => {
 
     const songUrl = useLoadSongUrl(song!)
 
-    // if (!song || !songUrl || !player.activeId) {
-    //     return null
-    // }
+    if (!song || !songUrl || !player.activeId) {
+        return null
+    }
 
     return (
         <div
