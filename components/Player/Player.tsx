@@ -2,6 +2,7 @@
 
 import { useGetSongById, useLoadSongUrl, usePlayer } from '@/hooks';
 import { FC } from 'react'
+import { PlayerContent } from '../PlayerContent/PlayerContent';
 
 interface PlayerProps {
 
@@ -30,7 +31,11 @@ const Player: FC<PlayerProps> = () => {
             px-4    
         '
         >
-            Player
+            <PlayerContent
+                key={songUrl}
+                song={song}
+                songUrl={songUrl}
+            />
         </div>
     )
 }
