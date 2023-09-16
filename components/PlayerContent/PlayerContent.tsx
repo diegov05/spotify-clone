@@ -1,7 +1,7 @@
 "use client";
 
 import { Song } from '@/types';
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { MediaItem } from '../MediaItem/MediaItem';
 import { LikeButton } from '../LikeButton/LikeButton';
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
@@ -9,6 +9,7 @@ import { AiFillStepBackward, AiFillStepForward } from 'react-icons/ai';
 import { HiSpeakerWave, HiSpeakerXMark } from 'react-icons/hi2'
 import { Slider } from '../Slider/Slider';
 import { usePlayer } from '@/hooks';
+import useSound from 'use-sound';
 
 interface PlayerContentProps {
     song: Song
@@ -60,6 +61,44 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
         player.setId(previousSong)
     }
 
+    const [play, { pause, sound }] = useSound(
+        songUrl,
+        {
+            volume: volume,
+            onplay: () => setIsPlaying(true),
+            onend: () => {
+                setIsPlaying(false)
+                onPlayNext()
+            },
+            onpause: () => setIsPlaying(false),
+            format: ['mp3']
+        }
+    )
+
+    useEffect(() => {
+        sound?.play()
+
+        return () => {
+            sound?.unload()
+        }
+    }, [sound]);
+
+    const handlePlay = () => {
+        if (!isPlaying) {
+            play()
+        } else {
+            pause()
+        }
+    }
+
+    const toggleMute = () => {
+        if (volume === 0) {
+            setVolume(1)
+        } else {
+            setVolume(0)
+        }
+    }
+
     return (
         <div
             className='
@@ -98,7 +137,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
             '
             >
                 <div
-                    onClick={() => { }}
+                    onClick={handlePlay}
                     className='
                         h-10
                         w-10
@@ -140,7 +179,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
                     '
                 />
                 <div
-                    onClick={() => { }}
+                    onClick={handlePlay}
                     className='
                     flex
                     items-center
@@ -187,11 +226,14 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
                 '
                 >
                     <VolumeIcon
-                        onClick={() => { }}
+                        onClick={toggleMute}
                         className='cursor-pointer'
                         size={34}
                     />
-                    <Slider />
+                    <Slider
+                        value={volume}
+                        onChange={(value) => setVolume(value)}
+                    />
                 </div>
             </div>
 
