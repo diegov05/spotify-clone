@@ -11,6 +11,7 @@ import { useAuthModal, useUser } from '@/hooks';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { FaUserAlt } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
+import Link from 'next/link';
 
 interface HeaderProps {
     children: React.ReactNode
@@ -36,23 +37,6 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
             toast.success("Logged out!")
         }
     }
-    const pathName = usePathname()
-
-    const routes = useMemo(() => [
-        {
-            Icon: HiHome,
-            label: "Home",
-            active: pathName !== "/search",
-            href: '/'
-        },
-        {
-            Icon: BiSearch,
-            label: "Search",
-            active: pathName === "/search",
-            href: '/search'
-        }
-    ], [pathName])
-
 
     return (
         <div className={twMerge(`
@@ -110,11 +94,9 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
                     gap-x-2 
                     items-center
                     '>
-                    {routes.map((item) => (
-                        <a
-                            {...item}
-                            key={item.label}
-                            className='
+                    <Link
+                        href={'/'}
+                        className='
                                 rounded-full 
                                 p-2 
                                 bg-white 
@@ -124,9 +106,22 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
                                 hover:opacity-75 
                                 transition
                         '>
-                            <HiHome className='text-black' size={20} />
-                        </a>
-                    ))}
+                        <HiHome className='text-black' size={20} />
+                    </Link>
+                    <Link
+                        href={'/search'}
+                        className='
+                                rounded-full 
+                                p-2 
+                                bg-white 
+                                flex 
+                                items-center 
+                                justify-center 
+                                hover:opacity-75 
+                                transition
+                        '>
+                        <BiSearch className='text-black' size={20} />
+                    </Link>
                 </div>
                 <div
                     className='
