@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from 'next/navigation'
-import { FC } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { FC, useMemo } from 'react'
 import { twMerge } from "tailwind-merge"
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { HiHome } from 'react-icons/hi';
@@ -36,6 +36,23 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
             toast.success("Logged out!")
         }
     }
+    const pathName = usePathname()
+
+    const routes = useMemo(() => [
+        {
+            Icon: HiHome,
+            label: "Home",
+            active: pathName !== "/search",
+            href: '/'
+        },
+        {
+            Icon: BiSearch,
+            label: "Search",
+            active: pathName === "/search",
+            href: '/search'
+        }
+    ], [pathName])
+
 
     return (
         <div className={twMerge(`
@@ -58,6 +75,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
                 gap-x-2 
                 items-center
                 '>
+
                     <button
                         onClick={() => router.back()}
                         className='
@@ -92,32 +110,23 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
                     gap-x-2 
                     items-center
                     '>
-                    <button
-                        className='
-                        rounded-full 
-                        p-2 
-                        bg-white 
-                        flex 
-                        items-center 
-                        justify-center 
-                        hover:opacity-75 
-                        transition
+                    {routes.map((item) => (
+                        <a
+                            {...item}
+                            key={item.label}
+                            className='
+                                rounded-full 
+                                p-2 
+                                bg-white 
+                                flex 
+                                items-center 
+                                justify-center 
+                                hover:opacity-75 
+                                transition
                         '>
-                        <HiHome className='text-black' size={20} />
-                    </button>
-                    <button
-                        className='
-                        rounded-full 
-                        p-2 
-                        bg-white 
-                        flex 
-                        items-center 
-                        justify-center 
-                        hover:opacity-75 
-                        transition
-                        '>
-                        <BiSearch className='text-black' size={20} />
-                    </button>
+                            <HiHome className='text-black' size={20} />
+                        </a>
+                    ))}
                 </div>
                 <div
                     className='
